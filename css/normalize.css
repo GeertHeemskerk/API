@@ -351,3 +351,13 @@ li{
 a:active{
   color: black
 }
+
+button:focus{
+  outline: none;
+  border: none;
+}
+
+input:focus{
+  outline: none;
+  border: none;
+}

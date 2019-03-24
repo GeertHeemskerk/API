@@ -2,15 +2,29 @@ window.onload = function(){
     var button = document.getElementsByClassName('request')[0];
 
     button.onclick = function(){
-      var city = document.getElementById('city').value;
+      var result = document.getElementById('result').value;
+      var divBG = document.getElementsByClassName('container')[0];
+
+      fetch('https://api.unsplash.com/search/photos/?client_id=479ba9cf6836ac0c108cdd6cf860fe09d65c6b18ee27ccd99094a952e33c3d07&query='+result)
+      .then(function(res){
+        return res.json();
+      }).then(function(data){
+        console.log(data);
+        var pResult = data.results[0].urls.full;
+        console.log(pResult);
+        divBG.style.backgroundImage = "url(" + pResult + ")";
+
+      }).catch(function(error){
+        console.log('Unsplash request FAILED', error)
+      });
 
 
-      fetch('http://api.apixu.com/v1/current.json?key=37584b76510f41bb8bd141910191803&q='+city)
+
+      fetch('http://api.apixu.com/v1/current.json?key=37584b76510f41bb8bd141910191803&q='+result)
         .then(function(res){
           return res.json();
         })
         .then(function(data){
-          console.log(data);
           var temp = data.current.temp_c;
           var feels = data.current.feelslike_c;
           var wind = data.current.wind_kph;
@@ -23,21 +37,21 @@ window.onload = function(){
 
           //Check if region is filled in
           if(locationR){
-            document.getElementsByClassName('location')[0].innerHTML = "The location that you selected: " + locationN + " , " + locationR + " , " + locationC;
+            document.getElementsByClassName('location')[0].innerHTML = "The location that you selected: " + locationN + " , " + locationR + " , " + locationC + ". ";
           }else{
-            document.getElementsByClassName('location')[0].innerHTML = "The location that you selected: " + locationN + " , " + locationC;
+            document.getElementsByClassName('location')[0].innerHTML = "The location that you selected: " + locationN + " , " + locationC + " . ";
           }
 
-          document.getElementsByClassName('temp')[0].innerHTML = "The tempature ATM is: " + temp + " &#x2103; and it feels like " + feels + " &#x2103;";
-          document.getElementsByClassName('wind')[0].innerHTML = "The wind is going: " + wind + " kilometer per hour";
+          document.getElementsByClassName('temp')[0].innerHTML = "The tempature ATM is: " + temp + "&#x2103; and it feels like " + feels + "&#x2103; . ";
+          document.getElementsByClassName('wind')[0].innerHTML = "The wind is going: " + wind + " kilometer per hour . ";
 
           var tempAdvice = true;
           var windAdvice = true;
 
           //degrees advice
-          if(temp > -100){
+          if(temp > -100 && temp < 0){
             //extremely cold
-            tMeter.innerHTML = "The tempature is extremely cold, DONT LAND!";
+            tMeter.innerHTML = "The tempature is extremely cold";
             tempAdvice = false;
 
           }if(temp >= 0 && temp < 11){
@@ -82,7 +96,7 @@ window.onload = function(){
           if(windAdvice && tempAdvice){
             advice.innerHTML = "You can safely land, both conditions are good!";
           }else{
-            advice.innerHTML = "You can NOT safely land";
+            advice.innerHTML = "You can NOT safely land!";
           }
 
         })
