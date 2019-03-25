@@ -84,30 +84,33 @@ window.onload = function(){
             advice.innerHTML = "You can NOT safely land!";
           }
 
-        fetch('https://api.unsplash.com/search/photos/?client_id=479ba9cf6836ac0c108cdd6cf860fe09d65c6b18ee27ccd99094a952e33c3d07&query='+locationN)
-        .then(function(res){
-          return res.json();
-        }).then(function(data){
+          fetch('https://api.unsplash.com/search/photos/?client_id=479ba9cf6836ac0c108cdd6cf860fe09d65c6b18ee27ccd99094a952e33c3d07&query='+locationN)
+          .then(function(res){
+            return res.json();
+          }).then(function(data){
 
-          var pResult = data.results[0].urls.full;
-          var imgW = data.results[0].width;
-          var imgH = data.results[0].height;
+            var pResult = data.results[0].urls.full;
+            var imgW = data.results[0].width;
+            var imgH = data.results[0].height;
 
-          document.getElementById('title').style.display = "none";
-          document.getElementById('subTitle').style.display = "none";
-          document.getElementsByClassName('input')[0].style.color = "#764EBE";
-          document.getElementsByClassName('lTitle')[0].innerHTML = "Location variables";
-          document.getElementsByClassName('aTitle')[0].innerHTML = "Final advice";
+            document.getElementById('title').style.display = "none";
+            document.getElementById('subTitle').style.display = "none";
+            document.getElementsByClassName('input')[0].style.color = "#764EBE";
+            document.getElementsByClassName('lTitle')[0].innerHTML = "Location variables";
+            document.getElementsByClassName('aTitle')[0].innerHTML = "Final advice";
 
-          if(imgW >= imgH){
-             divBG.style.backgroundImage = "url(" + pResult + ")";
-           }else{
-             for(i = 0; imgW <= imgH; i++){
-                 pResult = data.results[i].urls.full;
-                 divBG.style.backgroundImage = "url(" + pResult + ")";
-                 console.log(i);
-             }
-          }
+            if(imgW >= imgH){
+               divBG.style.backgroundImage = "url(" + pResult + ")";
+             }else{
+               for(i = 0; imgW <= imgH; i++){
+                   pResult = data.results[i].urls.full;
+                   divBG.style.backgroundImage = "url(" + pResult + ")";
+                   console.log(i);
+               }
+            }
+          }).catch(function(error){
+            console.log('unsplash, something went wrong', error);
+          });
         })
         .catch(function(error){
           console.log('Weather, request FAILED ', error);

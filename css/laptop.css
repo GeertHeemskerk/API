@@ -1,0 +1,47 @@
+@media only screen and (min-width: 1440px){
+  body{
+    font-size: 20px;
+  }
+
+  h1{
+    font-size: 44px;
+  }
+
+  h2{
+    font-size: 34px;
+  }
+
+  h3{
+    font-size: 28px;
+  }
+
+  .button{
+    padding: 10px;
+    width: 120px;
+    font-size: 16px;
+  }
+
+  .input{
+    width: 350px;
+  }
+
+  span{
+    height: 2px;
+  }
+
+  .input:hover+span,
+  .input:active+span,
+  .input:focus+span{
+    width: 350px;
+  }
+
+  .flexContainer{
+    flex-direction: row;
+  }
+
+  .container{
+    width: 100%;
+    height: 95vh;
+    margin-top: 25px;
+  }
+}
