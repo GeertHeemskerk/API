@@ -105,7 +105,6 @@ window.onload = function(){
                for(i = 0; imgW <= imgH; i++){
                    pResult = data.results[i].urls.full;
                    divBG.style.backgroundImage = "url(" + pResult + ")";
-                   console.log(i);
                }
             }
           }).catch(function(error){
