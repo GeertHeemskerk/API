@@ -5,7 +5,7 @@ window.onload = function(){
       var result = document.getElementById('result').value;
       var divBG = document.getElementsByClassName('container')[0];
 
-      fetch('http://api.apixu.com/v1/current.json?key=37584b76510f41bb8bd141910191803&q='+result)
+      fetch('https://api.apixu.com/v1/current.json?key=37584b76510f41bb8bd141910191803&q='+result)
         .then(function(res){
           return res.json();
         })
