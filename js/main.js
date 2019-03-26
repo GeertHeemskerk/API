@@ -16,19 +16,27 @@ window.onload = function(){
           var locationN =  data.location.name;
           var locationR = data.location.region;
           var locationC = data.location.country;
+
+          var lTitle = document.getElementsByClassName('lTitle')[0];
+          var locationDiv = document.getElementsByClassName('location')[0];
+          var tempDiv = document.getElementsByClassName('temp')[0];
+          var windDiv = document.getElementsByClassName('wind')[0];
+
+          var aTitle = document.getElementsByClassName('aTitle')[0];
           var advice = document.getElementsByClassName('advice')[0];
           var tMeter = document.getElementsByClassName('tempAdvice')[0];
           var wMeter = document.getElementsByClassName('windAdvice')[0];
 
+
           //Check if region is filled in
           if(locationR){
-            document.getElementsByClassName('location')[0].innerHTML = "The location that you selected: " + locationN + ", " + locationR + ", " + locationC + ". ";
+            locationDiv.innerHTML = "The location that you selected: " + locationN + ", " + locationR + ", " + locationC + ". ";
           }else{
-            document.getElementsByClassName('location')[0].innerHTML = "The location that you selected: " + locationN + ", " + locationC + ". ";
+            locationDiv.innerHTML = "The location that you selected: " + locationN + ", " + locationC + ". ";
           }
 
-          document.getElementsByClassName('temp')[0].innerHTML = "The tempature ATM is: " + temp + "&#x2103; and it feels like " + feels + "&#x2103; . ";
-          document.getElementsByClassName('wind')[0].innerHTML = "The wind is going: " + wind + " kilometer per hour . ";
+          tempDiv.innerHTML = "The tempature ATM is: " + temp + "&#x2103; and it feels like " + feels + "&#x2103; . ";
+          windDiv.innerHTML = "The wind is going: " + wind + " kilometer per hour . ";
 
           var tempAdvice = true;
           var windAdvice = true;
@@ -84,6 +92,25 @@ window.onload = function(){
             advice.innerHTML = "You can NOT safely land!";
           }
 
+          TweenLite.set(lTitle, {opacity: 0, x: -150});
+          TweenLite.to(lTitle, 0.5, { ease: Power0.easeOut, opacity: 1, x: 0.1 }).delay(0.4);
+          TweenLite.set(locationDiv, {opacity: 0, x: -150});
+          TweenLite.to(locationDiv, 0.8, { ease: Power0.easeOut, opacity: 1, x: 0.1 }).delay(0.6);
+          TweenLite.set(tempDiv, {opacity: 0, x: -150});
+          TweenLite.to(tempDiv, 0.8, { ease: Power0.easeOut, opacity: 1, x: 0.1 }).delay(0.8);
+          TweenLite.set(windDiv, {opacity: 0, x: -150});
+          TweenLite.to(windDiv, 0.8, { ease: Power0.easeOut, opacity: 1, x: 0.1 }).delay(1);
+
+          TweenLite.set(aTitle, {opacity: 0, x: -150});
+          TweenLite.to(aTitle, 0.5, { ease: Power0.easeOut, opacity: 1, x: 0.1 }).delay(0.4);
+          TweenLite.set(tMeter, {opacity: 0, x: -150});
+          TweenLite.to(tMeter, 0.8, { ease: Power0.easeOut, opacity: 1, x: 0.1 }).delay(0.6);
+          TweenLite.set(wMeter, {opacity: 0, x: -150});
+          TweenLite.to(wMeter, 0.8, { ease: Power0.easeOut, opacity: 1, x: 0.1 }).delay(0.8);
+          TweenLite.set(advice, {opacity: 0, x: -150});
+          TweenLite.to(advice, 0.8, { ease: Power0.easeOut, opacity: 1, x: 0.1 }).delay(1);
+
+
           fetch('https://api.unsplash.com/search/photos/?client_id=479ba9cf6836ac0c108cdd6cf860fe09d65c6b18ee27ccd99094a952e33c3d07&query='+locationN)
           .then(function(res){
             return res.json();
@@ -96,8 +123,12 @@ window.onload = function(){
             document.getElementById('title').style.display = "none";
             document.getElementById('subTitle').style.display = "none";
             document.getElementsByClassName('input')[0].style.color = "#764EBE";
-            document.getElementsByClassName('lTitle')[0].innerHTML = "Location variables";
-            document.getElementsByClassName('aTitle')[0].innerHTML = "Final advice";
+
+            lTitle.innerHTML = "Location variables";
+            aTitle.innerHTML = "Final advice";
+
+            TweenLite.set(divBG, {opacity: 0});
+            TweenLite.to(divBG, 3.5, { opacity: 1});
 
             if(imgW >= imgH){
                divBG.style.backgroundImage = "url(" + pResult + ")";
@@ -107,6 +138,7 @@ window.onload = function(){
                    divBG.style.backgroundImage = "url(" + pResult + ")";
                }
             }
+
           }).catch(function(error){
             console.log('unsplash, something went wrong', error);
           });
